@@ -14,6 +14,7 @@ int cgiMain()
 	char stuId[32] = "\0";
 	char sdept[32] = "\0";
 	char sex[32] = "\0";
+	char phone[32] = "\0";
 	int status = 0;
 
 	status = cgiFormString("nams",  nams, 32);
@@ -47,6 +48,12 @@ int cgiMain()
 		fprintf(cgiOut, "get stuId error!\n");
 		return 1;
 	}
+	status = cgiFormString("phone",  phone, 32);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get phone error!\n");
+		return 1;
+	}
 
 	//fprintf(cgiOut, "name = %s, age = %s, stuId = %s\n", name, age, stuId);
 
@@ -56,6 +63,7 @@ int cgiMain()
 
 	//初始化
 	db = mysql_init(NULL);
+	mysql_options(db,MYSQL_SET_CHARSET_NAME,"utf8");
 	if (db == NULL)
 	{
 		fprintf(cgiOut,"mysql_init fail:%s\n", mysql_error(db));
@@ -74,7 +82,7 @@ int cgiMain()
 
 
 
-	strcpy(sql, "create table student(id int not null primary key, nams varchar(20) not null, age int not null, sdept char(10) not null , sex char(6) not null)");
+	strcpy(sql, "create table student( stuId int not null primary key, nams varchar(20) not null, age int not null, sdept int(4) not null , sex char(6) (sex in('男','女')), phone char(15) not null  ")     ;
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		if (ret != 1)
@@ -88,7 +96,7 @@ int cgiMain()
 
 
 
-	sprintf(sql, "insert into student values(%d, '%s', %d,'%s','%s')", atoi(stuId), nams, atoi(age), sdept, sex);
+	sprintf(sql, "insert into student values(%d, '%s', %d,'%d','%s','%s')", atoi(stuId), nams, atoi(age), atoi(sdept), sex, phone);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));
