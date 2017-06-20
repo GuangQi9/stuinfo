@@ -61,7 +61,8 @@ int cgiMain()
 
 
 
-	fprintf(cgiOut, "nams = %s, age = %d, stuId = %d, sex = %s, phone = %s, sdept = %s\n", nams, age, stuId, sex, phone, sdept);
+/*	fprintf(cgiOut, "nams = %s, age = %d, stuId = %d, sex = %s, phone = %s, sdept = %s\n", nams, age, stuId, sex, phone, sdept);
+*/
 
 	int ret;
 	char sql[128] = "\0";
@@ -75,7 +76,7 @@ int cgiMain()
 		fprintf(cgiOut,"mysql_init fail:%s\n", mysql_error(db));
 		return -1;
 	}
-fprintf(cgiOut, "nams = %s, age = %d, stuId = %d, sex = %s, phone = %s, sdept = %s\n", nams, atoi(age), atoi(stuId), sex, phone, sdept);
+/*fprintf(cgiOut, "nams = %s, age = %d, stuId = %d, sex = %s, phone = %s, sdept = %s\n", nams, atoi(age), atoi(stuId), sex, phone, sdept);*/
 	//连接数据库
 	db = mysql_real_connect(db, "127.0.0.1", "root", "123456", "stu",  3306, NULL, 0);
 	if (db == NULL)
@@ -86,7 +87,7 @@ fprintf(cgiOut, "nams = %s, age = %d, stuId = %d, sex = %s, phone = %s, sdept = 
 	}
 
 
-	sprintf(sql, "update stu set nams='%s', age= %d , stuId = %d , sex = '%s' , phone = '%s' , sdept = '%s'", nams, atoi(age), atoi(stuId), sex, phone, sdept);
+	sprintf(sql, "update student set nams='%s', age= %d ,  sex = '%s' , phone = '%s' , sdept = '%s' where stuId = %d ", nams, atoi(age),  sex, phone, sdept,atoi(stuId));
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));

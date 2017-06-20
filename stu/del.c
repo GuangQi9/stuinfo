@@ -44,7 +44,7 @@ int cgiMain()
 	}
 
 
-	sprintf(sql, "delete from stu where id = %d", atoi(stuId));
+	sprintf(sql, "delete from student where stuId = %d", atoi(stuId));
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		fprintf(cgiOut,"mysql_real_query fail:%s\n", mysql_error(db));
