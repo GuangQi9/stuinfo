@@ -47,9 +47,10 @@ int cgiMain()
 	}
 	else
 	{
-		sprintf(sql, "select * from score where stuId = %d", stuId);
+		sprintf(sql, "select * from score where stuId=%d and cno=%d", atoi(stuId),atoi(cno));
 	}
-
+  // fprintf(cgiOut, "%s\n",sql );
+  // fprintf(cgiOut, "<br>");
 
 	//初始化
 	db = mysql_init(NULL);
