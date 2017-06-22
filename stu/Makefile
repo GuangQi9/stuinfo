@@ -1,7 +1,8 @@
 CC=gcc
 AFLAGS=-Wall -g
 LDFLAGS= -lmysqlclient
-OBJS= add.cgi del.cgi mod.cgi sel.cgi adds.cgi score.cgi upscore.cgi
+OBJS= add.cgi del.cgi mod.cgi sel.cgi adds.cgi score.cgi upscore.cgi scoredel.cgi Shielddel.cgi courseadd.cgi coursedel.cgi coursesel.cgi
+courseup.cgi
 
 all:$(OBJS)
 
@@ -15,3 +16,5 @@ install:
 		cp *.cgi /usr/lib/cgi-bin/sx
 
 		cp ~/github/cgi-stu/stu/index.html /var/www/html/index.html
+		cp ~/github/cgi-stu/stu/score.html /var/www/html/score.html
+		cp ~/github/cgi-stu/stu/course.html /var/www/html/course.html
