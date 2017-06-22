@@ -17,7 +17,7 @@ int cgiMain()
 			</head>");*/
 
 	fprintf(cgiOut, "<head><meta charset=\"utf-8\"><title>查询结果</title>\
-		    <link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
+		  <link rel=\"stylesheet\" href=\"/stu/public/css/bootstrap.min.css\">\
 		</head>");
 
 	char nams[32] = "\0";
