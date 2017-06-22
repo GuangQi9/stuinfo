@@ -37,6 +37,12 @@ int cgiMain()
 		fprintf(cgiOut, "get credit error!\n");
 		return 1;
 	}
+	status = cgiFormString("fclass",  fclass, 32);
+	if (status != cgiFormSuccess)
+	{
+		fprintf(cgiOut, "get fclass error!\n");
+		return 1;
+	}
 
 
 	//fprintf(cgiOut, "name = %s, age = %s, stuId = %s\n", name, age, stuId);
@@ -66,9 +72,7 @@ int cgiMain()
 
 
 
-	strcpy(sql, "create table course(cno int not null primary key,
- cname varchar(10) not null,credit int(4) not null, fclass char (10) not null )
- character set = utf8;  ") ;
+	strcpy(sql, "create table course( cno int not null primary key,cname varchar(10) not null, credit int(4) not null, fclass char (10) not null  ") ;
 	if ((ret = mysql_real_query(db, sql, strlen(sql) + 1)) != 0)
 	{
 		if (ret != 1)
@@ -79,10 +83,10 @@ int cgiMain()
 		}
 	}
 
+ //fprintf(cgiOut, "add course error!\n");
 
 
-
-	sprintf(sql, "insert into score values(%d, %d, %d,'%s' )", atoi(cno), atoi(cname), atoi(credit),fclass);
+	sprintf(sql, "insert into course values(%d, '%s', %d,'%s' )", atoi(cno), cname, atoi(credit),fclass);
 	if (mysql_real_query(db, sql, strlen(sql) + 1) != 0)
 	{
 		fprintf(cgiOut, "%s\n", mysql_error(db));
